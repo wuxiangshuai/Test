@@ -25,8 +25,12 @@ public class ThreaderBinaryTreeDemo {
         tree.setRoot(root);
         tree.threaderNodes();
 
+        System.out.println(node4.getLeft());
         System.out.println(node4.getRight());
         System.out.println(node6.getLeft());
+
+        System.out.println("线索化二叉树遍历");
+        tree.threaderList();
     }
 }
 
@@ -41,6 +45,26 @@ class ThreaderBinaryTree {
     public ThreaderBinaryTree setRoot(HeroNode root) {
         this.root = root;
         return this;
+    }
+
+    // 遍历线索化二叉树
+    public void threaderList() {
+        HeroNode node = this.root;
+        while (node != null) {
+            // 左节点不为1时，继续向下
+            while (node.getLeftType() == 0) {
+                node = node.getLeft();
+            }
+            // 左节点为1时，说明进行了线索化，打印该元素
+            System.out.println(node);
+            // 依据线索向右遍历，直到右节点type不为1
+            while (node.getRightType() == 1) {
+                node = node.getRight();
+                System.out.println(node);
+            }
+            // 当元素右节点不为1时，从当前节点开启下一次循环
+            node = node.getRight();
+        }
     }
 
     // 重载threaderNodes
