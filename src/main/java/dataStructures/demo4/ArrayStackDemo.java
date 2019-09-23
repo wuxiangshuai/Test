@@ -6,7 +6,7 @@ import java.util.Scanner;
  * @ClassName: ArrayStackDemo
  * @Author: WuXiangShuai
  * @Time: 14:58 2019/9/12.
- * @Description:
+ * @Description: 栈数组
  */
 public class ArrayStackDemo {
 

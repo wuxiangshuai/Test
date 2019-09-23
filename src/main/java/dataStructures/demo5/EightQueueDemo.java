@@ -4,7 +4,7 @@ package dataStructures.demo5;
  * @ClassName: EightQueueDemo
  * @Author: WuXiangShuai
  * @Time: 15:52 2019/9/16.
- * @Description:
+ * @Description: 八皇后问题
  */
 public class EightQueueDemo {
 

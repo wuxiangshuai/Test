@@ -4,7 +4,7 @@ package dataStructures.demo2;
  * @ClassName: ArrayQueue
  * @Author: WuXiangShuai
  * @Time: 16:39 2019/9/10.
- * @Description:
+ * @Description: 队列
  */
 public class ArrayQueueDemo {
 

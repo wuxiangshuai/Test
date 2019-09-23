@@ -6,7 +6,7 @@ import java.util.Stack;
  * @ClassName: TestStack
  * @Author: WuXiangShuai
  * @Time: 16:20 2019/9/11.
- * @Description:
+ * @Description: 模拟栈
  */
 public class TestStack {
 

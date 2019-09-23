@@ -5,6 +5,7 @@ package dataStructures.demo3;
  * @Author: WuXiangShuai
  * @Time: 11:54 2019/9/12.
  * @Description: 解决约瑟夫问题，使用单向环形链表。
+ * 约瑟夫问题：n个人，从第m个人开始，依次报数，数到x，该人退出，其他人重新开始进行报数，直到所有人都退出。
  */
 public class Josepfu {
 

@@ -4,7 +4,7 @@ package dataStructures.demo8;
  * @ClassName: ArrayBinaryTreeDemo
  * @Author: WuXiangShuai
  * @Time: 16:25 2019/9/19.
- * @Description:
+ * @Description: 顺序二叉树
  */
 public class ArrayBinaryTreeDemo {
 

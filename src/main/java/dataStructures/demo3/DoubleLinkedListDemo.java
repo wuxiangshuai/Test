@@ -4,7 +4,7 @@ package dataStructures.demo3;
  * @ClassName: DoubleLinkedListDemo
  * @Author: WuXiangShuai
  * @Time: 17:42 2019/9/11.
- * @Description:
+ * @Description: 双向链表
  */
 public class DoubleLinkedListDemo {
 

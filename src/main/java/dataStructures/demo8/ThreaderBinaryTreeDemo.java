@@ -4,7 +4,7 @@ package dataStructures.demo8;
  * @ClassName: ThreaderBinaryTreeDemo
  * @Author: WuXiangShuai
  * @Time: 16:59 2019/9/19.
- * @Description:
+ * @Description: 线索化二叉树
  */
 public class ThreaderBinaryTreeDemo {
     public static void main(String[] args) {

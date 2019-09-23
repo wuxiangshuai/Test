@@ -4,7 +4,7 @@ package dataStructures.demo2;
  * @ClassName: CircleArrayQueueDemo
  * @Author: WuXiangShuai
  * @Time: 17:15 2019/9/10.
- * @Description:
+ * @Description: 环形队列
  */
 public class CircleArrayQueueDemo {
 

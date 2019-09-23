@@ -4,7 +4,7 @@ package dataStructures.demo5;
  * @ClassName: Migong
  * @Author: WuXiangShuai
  * @Time: 15:20 2019/9/16.
- * @Description:
+ * @Description: 迷宫问题，从一点到另一点
  */
 public class Migong {
 
