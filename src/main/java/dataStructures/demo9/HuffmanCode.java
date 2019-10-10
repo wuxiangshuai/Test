@@ -1,5 +1,6 @@
 package dataStructures.demo9;
 
+import java.io.*;
 import java.util.*;
 
 /**
@@ -16,7 +17,8 @@ public class HuffmanCode {
     static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) {
-        String str = "i like like like java do you like a java";
+//        String str = "i like like like java do you like a java";
+        // ------
 //        List<CodeNode> nodes = getNodes(str);
 //        System.out.println(nodes);
 //
@@ -30,43 +32,191 @@ public class HuffmanCode {
 //        System.out.println(huffmanCodes);
 //
 //        Byte[] bytes = zip(str);
-        Byte[] bytes = huffmanZip(str);
-        System.out.println(Arrays.toString(bytes));
+        // ------
+        // 按赫夫曼编码压缩后的byte[]数组
+//        byte[] bytes = huffmanZip(str.getBytes());
+//        System.out.println(Arrays.toString(bytes));
+        // 解压
+//        byte[] decode = decode(bytes);
+//        System.out.println(new String(decode));
+        // ------
+//        zipFile("C:\\Users\\Administrator\\Desktop\\haha.png", "C:\\Users\\Administrator\\Desktop\\dst.zip");
+        unZipFile("C:\\Users\\Administrator\\Desktop\\dst.zip", "C:\\Users\\Administrator\\Desktop\\haha.png");
+    }
+
+    // 解压
+    private static void unZipFile(String srcFile, String dstFile) {
+        // 定义输入流
+        InputStream is = null;
+        // 定义对象输入流
+        ObjectInputStream ois = null;
+        // 定义文件输出流
+        OutputStream os = null;
+        try{
+            // 创建文件输入流
+            is = new FileInputStream(srcFile);
+            // 创建与is相关的对象输入流
+            ois = new ObjectInputStream(is);
+            // 读取byte数组
+            byte[] huffmanBytes = (byte[]) ois.readObject();
+            // 读取赫夫曼编码表
+            Map<Byte, String> huffmanCodes = (Map<Byte, String>) ois.readObject();
+            // 解码
+            byte[] bytes = decode(huffmanBytes, huffmanCodes);
+            os = new FileOutputStream(dstFile);
+            os.write(bytes);
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally{
+            try {
+                os.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    ois.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        is.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+    // 压缩
+    private static void zipFile(String srcFile, String dstFile) {
+        // 创建输入流
+        FileInputStream fis = null;
+        // 创建输出流
+        OutputStream ops = null;
+        ObjectOutputStream oos = null;
+        try{
+            fis = new FileInputStream(srcFile);
+            // 接收源文件
+            byte[] bytes = new byte[fis.available()];
+            fis.read(bytes);
+            // 压缩
+            byte[] zip = huffmanZip(bytes);
+            // 新建文件输出流
+            ops = new FileOutputStream(dstFile);
+            // 新建一个与文件输出流关联的ObjectOutputStream
+            oos = new ObjectOutputStream(ops);
+            // 赫夫曼编码后的字节数组写入压缩文件
+            oos.writeObject(zip);
+            oos.writeObject(huffmanCodes);
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally{
+            try {
+                fis.close();
+                ops.close();
+                oos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 对压缩数据的解码
+     * @param huffmanBytes 赫夫曼编码后的字节数组
+     * @return 原字符串对应的数组
+     */
+    private static byte[] decode(byte[] huffmanBytes, Map<Byte, String> huffmanCodes) {
+        // byte数组转对应的字符串
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < huffmanBytes.length; i++) {
+            // arg1：是否是最后一个元素，是为false，无需补高位，arg2
+            sb.append(byteToBitString(!(i == huffmanBytes.length - 1), huffmanBytes[i]));
+        }
+//        System.out.println(sb);
+        // 反向查询赫夫曼编码
+        Map<String, Byte> map = new HashMap<>();
+        huffmanCodes.forEach((key, value) -> {
+            map.put(value, key);
+        });
+        // 获取解压后的byte集合
+        List<Byte> list = new ArrayList<>();
+        for (int i = 0; i < sb.length();) {
+            int count = 1;
+            Byte b = null;
+            // 在反向赫夫曼编码表内查找value，找不到向后指一位，继续查找
+            while (b == null) {
+                String sub = sb.substring(i, i + count);
+                b = map.get(sub);
+                count++;
+            }
+            list.add(b);
+            count--;
+            i += count;
+        }
+        // 集合转数组
+        byte[] bytes = new byte[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            bytes[i] = list.get(i);
+        }
+        return bytes;
+    }
+
+    /**
+     * byte转二进制字符串
+     * @param flag 标识是否需要补高位，true需要，false不需要
+     * @param b
+     * @return b 对应的二进制字符串。【补码】
+     */
+    private static String byteToBitString(boolean flag, byte b) {
+        // 保存 b，转 int
+        int temp = b;
+        // 正数补高位，负数不需要
+//        temp = flag ? temp | 256 : temp;
+        if (flag) {
+            temp |= 256;
+        }
+        String str = Integer.toBinaryString(temp);
+//        System.out.println(str);
+        if (flag) {
+            return str.substring(str.length() - 8);
+        } else {
+            return str;
+        }
     }
 
     // 封装方法
-    private static Byte[] huffmanZip(String str) {
+    private static byte[] huffmanZip(byte[] bytes) {
         // 生成节点集合
-        List<CodeNode> nodes = getNodes(str);
+        List<CodeNode> nodes = getNodes(bytes);
         // 创建赫夫曼树
         CodeNode root = createHuffmanTree(nodes);
         // 获取赫夫曼编码表
         getCodes(root);
-        Byte[] bytes = zip(str);
-        return bytes;
+        byte[] zipBytes = zip(bytes);
+        return zipBytes;
     }
 
-    private static Byte[] zip(String str) {
-        // 获取字符串字节数组
-        byte[] bytes = str.getBytes();
-        System.out.println(Arrays.toString(bytes));
+    private static byte[] zip(byte[] bytes) {
+//        System.out.println(Arrays.toString(bytes));
         // 字节数组通过哈夫曼编码表压缩
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < bytes.length; i++) {
             sb.append(huffmanCodes.get(bytes[i]));
         }
-        System.out.println(sb.toString());
+//        System.out.println(sb.toString());
         // 将哈夫曼数组转为byte数组
-        Byte[] codes = new Byte[(sb.length() + 7) / 8];
+        byte[] codes = new byte[(sb.length() + 7) / 8];
         int length = sb.length();
         for (int i = 0, index = 0; i < sb.length(); i += 8) {
             if (i+8 > length) {
-                codes[index++] = (byte)Integer.parseInt(sb.substring(i, sb.length() - 1), 2);
+                codes[index++] = (byte)Integer.parseInt(sb.substring(i, sb.length()), 2);
             } else {
                 codes[index++] = (byte)Integer.parseInt(sb.substring(i, i + 8), 2);
             }
         }
-        System.out.println(Arrays.toString(codes));
+//        System.out.println(Arrays.toString(codes));
         return codes;
     }
 
@@ -98,6 +248,7 @@ public class HuffmanCode {
         }
     }
 
+    // 创建赫夫曼树
     private static CodeNode createHuffmanTree(List<CodeNode> nodes) {
         while (nodes.size() > 1) {
             // 重排序
@@ -120,17 +271,17 @@ public class HuffmanCode {
         return nodes.get(0);
     }
 
-    private static List<CodeNode> getNodes(String str) {
+    private static List<CodeNode> getNodes(byte[] bytes) {
         // 接收返回值
         ArrayList<CodeNode> nodes = new ArrayList<>();
-        // 转 byte 数组
-        byte[] bytes = str.getBytes();
+        // 获取元素：元素出现次数
         Map<Byte, Integer> map = new HashMap<>();
         for (int i = 0; i < bytes.length; i++) {
             byte b = bytes[i];
             Integer in = map.get(b);
             map.put(b, in == null ? 1 : in + 1);
         }
+        // map 转 Node 树
         map.forEach((i, j) -> {
             CodeNode node = new CodeNode(i, j);
             nodes.add(node);
@@ -189,7 +340,7 @@ class CodeNode implements Comparable<CodeNode> {
     }
 
     public void pre() {
-        System.out.println(this);
+//        System.out.println(this);
         if (left != null) {
             left.pre();
         }
