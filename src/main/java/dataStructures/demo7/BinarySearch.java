@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.apache.coyote.http11.Constants.a;
 
 /**
  * @ClassName: BinarySearch

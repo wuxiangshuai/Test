@@ -1,6 +1,5 @@
 package dataStructures.demo6;
 
-import static org.apache.coyote.http11.Constants.a;
 
 /**
  * @ClassName: SelectionSort
