@@ -42,6 +42,7 @@ public class BinarySearch {
 
     /**
      * 二分法查找一个元素的索引
+     * 递归方式
      * @param arr
      * @param left
      * @param right
@@ -66,6 +67,7 @@ public class BinarySearch {
 
     /**
      * 二分法查询元素集内所有与查询值相等值的索引
+     * 递归方式
      * @param arr
      * @param left
      * @param right
