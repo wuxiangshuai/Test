@@ -4,8 +4,7 @@ import eight.java.bean.Gender;
 import eight.java.bean.Grade;
 import eight.java.bean.Student;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -75,8 +74,8 @@ public class Collector {
          * 第三个参数表示归约的过程。这个参数接收一个Lambda表达式，而且这个Lambda表达式一定拥有两个参数，
          *      分别表示当前相邻的两个元素。由于我们需要累加，因此我们只需将相邻的两个元素加起来即可。
          */
-        Integer collect = stream.collect(Collectors.reducing(0, Student::getAge, (i, j) -> i + j));
-        System.out.println(collect);
+//        Integer collect = stream.collect(Collectors.reducing(0, Student::getAge, (i, j) -> i + j));
+//        System.out.println(collect);
     }
 
     public static void demo(Stream<Student> stream){
@@ -94,12 +93,19 @@ public class Collector {
 //        collect.get(false).forEach(i -> System.out.println(i.getGender()));
 
         //分组函数:Collectors.groupingBy()，key：Grade
-//        Map<Grade, List<Student>> gradeGroup = stream.collect(Collectors.groupingBy(Student::getGrade));
-//        gradeGroup.get(Grade.ONE).forEach(i -> System.out.println(i.getName() + " : " + i.getGrade()));
+        Map<Grade, List<Student>> gradeGroup = stream.collect(Collectors.groupingBy(Student::getGrade));
+        gradeGroup.get(Grade.ONE).forEach(i -> System.out.println(i.getName() + " : " + i.getGrade()));
 
         //分组下级操作：按组统计个数
 //        Map<Grade, Long> collect = stream.collect(Collectors.groupingBy(Student::getGrade, Collectors.counting()));
 //        System.out.println(collect.get(Grade.ONE));
+//        Map<Grade, Long> collect = stream.collect(Collectors.groupingBy(Student::getGrade, Collectors.counting()));
+//        System.out.println(collect.get(Grade.ONE));
+        gradeGroup.forEach((key, list) -> {
+            Set<Student> set = new TreeSet<>((o1,o2)-> o1.getAge()-o2.getAge());
+            set.addAll(list);
+            System.out.println(set.size());
+        });
     }
 
 }
