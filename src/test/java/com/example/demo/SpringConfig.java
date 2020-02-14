@@ -7,12 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
-import java.util.Random;
 import java.util.Scanner;
-
-import static org.mockito.asm.tree.InsnList.check;
-
 
 /**
  * @ClassName: SpringConfig

@@ -1,16 +1,9 @@
-package test;
+package algorithm;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @ClassName: Test
- * @Author: WuXiangShuai
- * @Time: 18:42 2019/4/24.
- * @Description:
- */
-public class Test {
+public class DictionaryRanking {
     public static void main(String args[]) throws Exception {
         int num = 1000;
         int stage = 1;
