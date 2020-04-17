@@ -48,7 +48,7 @@ public class PolandNotation {
                 if ("(".equals(str)) {
                     s1.push(str);
                 } else if (")".equals(str)) {
-                    // 将s1中的符号依次弹出并压入s2，直到)为止
+                    // 将s1中的符号依次弹出并压入s2，直到(为止
                     while (!s1.peek().equals("(")) {
                         s2.add(s1.pop());
                     }
