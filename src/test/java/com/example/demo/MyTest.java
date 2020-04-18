@@ -16,20 +16,17 @@ public class MyTest {
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newCachedThreadPool();
-        CountDownLatch countDownLatch = new CountDownLatch(5000);
-
+        AtomicInteger integer = new AtomicInteger();
         for (int i = 0; i < 5000; i++) {
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
-                    MyTest.add();
+                    integer.incrementAndGet();
                 }
             });
         }
-        System.out.println("count:"+count);
+        System.out.println("count:"+integer);
         executorService.shutdown();
-        AtomicInteger integer = new AtomicInteger();
-        integer.incrementAndGet();
     }
 
     private synchronized static void add(){

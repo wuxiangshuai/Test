@@ -6,13 +6,13 @@ import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-//@ServerEndpoint(value="/websocketTest/{userId}")
-@ServerEndpoint("/websocketTest")
+@ServerEndpoint(value="/websocketTest/{userId}")
 @Component
 public class WebSocketDemo {
     private Logger logger = LoggerFactory.getLogger(WebSocketDemo.class);
@@ -21,7 +21,7 @@ public class WebSocketDemo {
 
     //连接时执行
     @OnOpen
-    public void onOpen(/*@PathParam("userId") String userId, */Session session) throws IOException {
+    public void onOpen(@PathParam("userId") String userId, Session session) throws IOException {
         this.userId = userId;
         logger.debug("新连接：{}",userId);
     }

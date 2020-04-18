@@ -31,4 +31,10 @@ public class UserController {
         return Result.ok().data("infos", infos);
     }
 
+    @RequestMapping("redirect")
+    public String redirect(){
+//        List<UserInfo> infos = userService.selectUsers();
+        return "redirect://www.baidu.com";
+    }
+
 }

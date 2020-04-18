@@ -23,6 +23,14 @@ public class MergeSort {
         System.out.println(Arrays.toString(arr));
     }
 
+    /*
+    {8, 6, 2, 10, 9, 5, 1}
+    {8, 6, 2, 10} {9, 5, 1}
+    {8, 6} {2, 10} {9, 5} {1}
+    {6, 8, 2, 10} {5, 9, 1}
+    {6, 8, 2, 10, 1, 5, 9}
+    {1, 2, 5, 6, 8, 9, 10}
+     */
     public static void mergeSort(int arr[], int left, int right, int[] temp) {
         if (left < right) {
             int mid = (left + right) / 2;

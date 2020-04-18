@@ -38,6 +38,18 @@ public class TimeUtils {
     public static final String FORMATDAY_ORIGIN = "yyyyMMdd";
 
     /**
+     * 根据身份证号返回年龄
+     */
+    public static String getAgeByIdNumber(String id) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(id.substring(6, 10));
+        builder.append(id.substring(10, 12));
+        builder.append(id.substring(12, 14));
+        Map<String, Long> param = TimeUtils.periodInfoMap(builder.toString());
+        return String.valueOf(param.get("years"));
+    }
+
+    /**
      * 解析时间长度，如100秒 = 一分钟四十秒
      */
     public static Map<String, Long> resolveTime(long time, int level) {
