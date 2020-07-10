@@ -2,8 +2,6 @@ package dataStructures.demo9;
 
 import java.util.Arrays;
 
-import static javafx.scene.input.KeyCode.J;
-
 /**
  * @ClassName: HeapSortDemo
  * @Author: WuXiangShuai
