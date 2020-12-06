@@ -22,8 +22,10 @@ public class ShellSort {
     }
 
     private static void sheelSort(int[] arr) {
-        int mid = arr.length / 2; // 第一次增量为集合长度的一半
-        while (mid >= 1) { // 判断增量，每次减半，小于1时退出循环
+        // 第一次增量为集合长度的一半
+        // 判断增量，每次减半，小于1时退出循环
+        // 增量每次减半
+        for (int mid = arr.length / 2; mid >= 1; mid /= 2) {
             for (int i = mid; i < arr.length; i++) { // 元素分组，数量等于增量mid
                 int val = arr[i];
                 int index = i - mid;
@@ -35,7 +37,6 @@ public class ShellSort {
                     arr[index + mid] = val;
                 }
             }
-            mid /= 2; // 增量每次减半
         }
         System.out.println(Arrays.toString(arr));
     }

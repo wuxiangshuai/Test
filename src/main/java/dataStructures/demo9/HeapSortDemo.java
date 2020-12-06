@@ -49,12 +49,17 @@ public class HeapSortDemo {
      */
     private static void adjustHeap(int[] arr, int i, int length) {
         int temp = arr[i];
+        // j 为左子结点的下标
+        // 注意：因为数组以 0 为起始坐标，需要 + 1，若空出 0 ，=2i 即可
         for (int j = 2 * i + 1; j < length; j= j * 2 + 1) {
+            // 判断左右子结点大小，选中较大的结点
             if (j + 1 < length && arr[j] < arr[j + 1]) {
                 j ++;
             }
+            // 若子节点大于根节点
             if (arr[j] > temp) {
-                arr[i] = arr[j];
+                arr[i] = arr[j]; // 交换值
+                // 沿着交换的方向继续向下判断，直到该子树满足顶堆要求
                 i = j;
             } else {
                 break;
